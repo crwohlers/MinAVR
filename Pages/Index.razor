@@ -32,18 +32,45 @@
 	}
 
 	public static Dictionary<int , Dictionary<string, object>> comps = new() {
-		{ 0, new() { { "globalId", 31 }, { "mainValue", false } } },
-		{ 1, new() { { "globalId", 31 }, { "mainValue", false } } } 
+		/*{ 0, new() { { "globalId", 31 }, { "mainValue", false } } },*/
+		{ 1, new() { { "globalId", 41 }, { "mainValue", new byte[32] } } } 
 	};
 
 	public static Index? app;
 
 	public static ElementReference? refresh;
 
+	private static byte inProgD;
+
 	[JSInvokable]
-	public static async void sendVal(int localId, object data)
+	public static async void sendSignal(int localId, JsonElement signal)
 	{
-		Index.comps[localId]["mainValue"] = data;
+		//Console.WriteLine(signal.GetProperty("type").ValueKind);
+		//bool res = ((ComponentDeclarations.components[(int)Index.comps[localId]["globalId"]].extraProperties["translation"]) as Func<int, bool>).Invoke(signal.GetInt32());
+		byte data = signal.GetProperty("data2").GetByte();
+
+
+		if ((data & 0b0000_0100) > 0)
+		{
+			Console.WriteLine(Convert.ToString(data, 2).PadLeft(8, '0').Insert(4, " "));
+			if ((data & 0b0000_0010) > 0)
+			{
+				if (inProgD == 0)
+				{
+					inProgD = (byte)(data & 0b1111_0000);
+					Console.WriteLine(Convert.ToString(inProgD, 2).PadLeft(8, '0').Insert(4, " ") + ": " + (char)inProgD);
+				}
+				else
+				{
+					inProgD |= (byte)((data & 0b1111_0000) >> 4);
+					Console.WriteLine(Convert.ToString(inProgD, 2).PadLeft(8, '0').Insert(4, " ") + ": " + (char)inProgD);
+					Index.comps[localId]["mainValue"] = new byte[] { inProgD };
+					inProgD = 0;
+				}
+			}
+		}
+
+		
 		await app.triggerRender();
 	}
 

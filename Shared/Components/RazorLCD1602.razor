@@ -16,7 +16,7 @@
     [Parameter]
     public byte[] characters { get; set; } = new byte[32];
     [Parameter]
-    public byte[] font { get; set; } = LCDFontA00.Font;
+    public byte[] font { get; set; } = new LCDFontA00().Font;
     [Parameter]
     public bool cursor { get; set; } = false;
     [Parameter]
@@ -34,7 +34,6 @@
     protected int numCols { get; } = 16;
     protected int numRows { get; } = 2;
 
-    [Parameter]
     public string text {
         get
         {

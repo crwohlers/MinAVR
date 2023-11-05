@@ -1,14 +1,16 @@
-﻿@switch(objId){
+﻿<div class="wrap-comp">
+@switch(objId){
 	case 31:
 		<RazorLED value=@(boolValue())></RazorLED>
 		break;
 	case 41:
-		<RazorLCD1602 text=@individualData["mainValue"].ToString()></RazorLCD1602>
+		<RazorLCD1602 characters=@((byte[])individualData["mainValue"])></RazorLCD1602>
 		break;
 	default:
 		<div>does not match any ID: @objId</div>
 		break;
 }
+</div>
 
 @code {
 	[Parameter]
@@ -27,9 +29,12 @@
 			bool a = value.GetBoolean();
 			return a;
 		}
-		else
+		else if (individualData["mainValue"] is bool val)
 		{
-			return false;
+			return val;
+		}
+		else{
+			throw new Exception("boolValue (varying component) got weird type in \"mainValue\".");
 		}
 
 	}

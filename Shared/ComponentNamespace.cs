@@ -43,7 +43,7 @@ namespace MinAVR.ComponentNamespace
 			{28, new ComponentDataBuilder("IR receiver - KY-022", "", typeof(int), false, "Input/Other Sensors").Finish() },
 			{29, new ComponentDataBuilder("SD Card Reader", "", typeof(int), false, "Input/Other Sensors").Finish() },
 			{30, new ComponentDataBuilder("Load Cell(HX711) - TAL221", "", typeof(int), false, "Input/Other Sensors").Finish() },
-			{31, new ComponentDataBuilder("LED", "", typeof(RazorLED), true, "Output/LED").Finish() },
+			{31, new ComponentDataBuilder("LED", "", typeof(RazorLED), true, "Output/LED").Property("translation", (int e)=>e==1).Finish() },
 			{32, new ComponentDataBuilder("LED 7-segment - Adafruit 0.56''", "", typeof(int), false, "Output/LED").Finish() },
 			{33, new ComponentDataBuilder("LED bar - Adafruit Bi-Color 24 Bargraph", "", typeof(int), false, "Output/LED").Finish() },
 			{34, new ComponentDataBuilder("LED matrix - MAX7219/MAX7221", "", typeof(int), false, "Output/LED").Finish() },

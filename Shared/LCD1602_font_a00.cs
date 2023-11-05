@@ -1,7 +1,7 @@
 ﻿namespace MinAVR {
-    public static class LCDFontA00
+    public class LCDFontA00
     {
-        public static byte[] Font { get; set; } = {
+        public byte[] Font { get; set; } = {
   /* 0 */ 0, 0, 0, 0, 0, 0, 0, 0,
   /* 1 */ 0, 0, 0, 0, 0, 0, 0, 0,
   /* 2 */ 0, 0, 0, 0, 0, 0, 0, 0,
